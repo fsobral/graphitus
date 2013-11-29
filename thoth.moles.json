@@ -1,0 +1,59 @@
+{
+	"title": "Moles",
+	"columns": 3,
+	"user": "fsobral",
+	"timeBack": "1h",
+	"from": "",
+	"until": "",
+	"width": 350,
+	"height": 350,
+	"legend": true,
+	"refresh": true,
+	"refreshIntervalSeconds": 30,
+	"averageSeries": false,
+	"defaultLineWidth": 1,
+	"tz":"America/Sao_Paulo",
+	"data": [
+		{
+			"title": "Crawler Mole URLs Fetched per 5min",
+			"target": "aliasByNode(derivative(scaleToSeconds(application.thoth.amo-*.crawler_moles_urls_fetched, 300)),2)"
+		},
+                {
+                        "title": "Last Mean Mole Job Time",
+                        "target": "aliasByNode(application.thoth.amo-*.last_crawler_mole_job_time,2)"
+                },
+		{
+			"title": "Last Mean Mole Threshold Checking Time",
+			"target": "aliasByNode(application.thoth.amo-*.last_mean_mole_threshold_checking_time,2)"
+		},
+		{
+			"title": "Person Mole Users Processed",
+			"target": "aliasByNode(application.thoth.amo-*.person_mole_job_users_processed,2)"
+		},
+                {
+                        "title": "Person Mole Users Processed per second",
+                        "target": "aliasByNode(derivative(scaleToSeconds(application.thoth.amo-*.person_mole_job_users_processed,1)),2)"
+                },
+		{
+			"title": "Person Mole Users Failed",
+			"target": "aliasByNode(application.thoth.amo-*.person_mole_job_users_failed,2)"
+		},
+		{
+			"title": "Mean Mole Threshold Checking Time Per Permalink",
+			"target": "aliasByNode(application.thoth.amo-*.mean_mole_threshold_checking_time_per_permalink,2)"
+		},
+                {
+                        "title": "Difference between inserted and processed per sec",
+                        "target": "diffSeries(derivative(scaleToSeconds(sumSeries(application.thoth.afe-*.put_requests_to_events),1)), derivative(scaleToSeconds(sumSeries(application.thoth.afe-*.person_mole_job_users_processed),1)))"
+                }
+	],
+	"parameters": {
+        "Requests": {
+		"All":{
+			"all": "*"
+		}
+        }
+
+    }
+}
+

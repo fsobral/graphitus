@@ -1,0 +1,31 @@
+{
+	"title": "Collectd Thoth",
+	"columns": 3,
+	"user": "fsobral",
+	"timeBack": "1h",
+	"from": "",
+	"until": "",
+	"width": 350,
+	"height": 350,
+	"legend": true,
+	"refresh": true,
+	"refreshIntervalSeconds": 30,
+	"averageSeries": false,
+	"defaultLineWidth": 1,
+	"tz":"America/Sao_Paulo",
+	"data": [
+		{
+			"title": "Load",
+			"target": "aliasByNode(collectd.afe-*.load.load.longterm,1)"
+		}
+	],
+	"parameters": {
+        "Requests": {
+		"All":{
+			"all": "*"
+		}
+        }
+
+    }
+}
+

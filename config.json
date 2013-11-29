@@ -1,6 +1,6 @@
 {
-    "graphiteUrl": "sample.png?",
-    "dashboardListUrl": "sample-index.json",
-    "dashboardUrlTemplate": "${dashboardId}.json",
+    "graphiteUrl": "http://graphite-web.aws.ig.com.br/render",
+    "dashboardListUrl": "http://redis.fsobral.ig.com.br:2030/dashboards",
+    "dashboardUrlTemplate": "http://redis.fsobral.ig.com.br:2030/dashboard?id=${dashboardId}",
     "minimumRefresh": 60
 }

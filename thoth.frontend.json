@@ -1,0 +1,51 @@
+{
+	"title": "FrontEnd Server",
+	"columns": 3,
+	"user": "fsobral",
+	"timeBack": "1h",
+	"from": "",
+	"until": "",
+	"width": 350,
+	"height": 350,
+	"legend": true,
+	"refresh": true,
+	"refreshIntervalSeconds": 30,
+	"averageSeries": false,
+	"defaultLineWidth": 1,
+	"tz":"America/Sao_Paulo",
+	"data": [
+		{
+			"title": "Get Requests to Recommender",
+			"target": "aliasByNode(application.thoth.afe-*.get_requests_to_recommender,2)"
+		},
+                {
+                        "title": "Get Requests to Recommender per second",
+                        "target": "aliasByNode(derivative(scaleToSeconds(application.thoth.afe-*.get_requests_to_recommender,1)),2)"
+                },
+		{
+			"title": "Last Event Insertion Time",
+			"target": "aliasByNode(application.thoth.afe-*.last_event_put_time,2)"
+		},
+		{
+			"title": "Insertion Requests to Events",
+			"target": "aliasByNode(application.thoth.afe-*.put_requests_to_events,2)"
+		},
+		{
+			"title": "Insertion Requests to Events per second",
+			"target": "aliasByNode(derivative(scaleToSeconds(application.thoth.afe-*.put_requests_to_events,1)),2)"
+		},
+		{
+			"title": "Rejected URL by Parser per minute",
+			"target": "aliasByNode(derivative(scaleToSeconds(application.thoth.afe-*.rejected_urls_by_parser,60)),2)"
+		}
+	],
+	"parameters": {
+        "Requests": {
+		"All":{
+			"all": "*"
+		}
+        }
+
+    }
+}
+

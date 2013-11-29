@@ -1,0 +1,36 @@
+{
+	"title": "",
+	"columns": 3,
+	"user": "",
+	"timeBack": "",
+	"from": "",
+	"until": "",
+	"width": 100,
+	"height": 100,
+	"legend": true,
+	"refresh": 60,
+	"refreshIntervalSeconds": 90,
+	"averageSeries": false,
+	"defaultLineWidth": 1,
+	"tz":"",
+	"data": [
+		{
+			"title": "",
+			"target": "",
+			"params": ""
+		},
+                {
+                        "title": "",
+                        "target": ""
+                }
+	],
+	"parameters": {
+        "Requests": {
+		"All":{
+			"all": "*"
+		}
+        }
+
+    }
+}
+
