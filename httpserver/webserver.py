@@ -138,7 +138,7 @@ def main():
 
     except KeyboardInterrupt:
 
-	print 'Finishing...'
+	print 'Finishing....'
 
 	server.socket.close()
 
