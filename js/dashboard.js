@@ -78,7 +78,7 @@ function loadDashboard() {
 			config = data;
 
 			//backward compatibility
-			if (!config.timeBack) {
+			if (!config.timeBack && config.hoursBack)  {
 				config.timeBack = config.hoursBack + 'h';
 			}
 			// end
@@ -132,7 +132,10 @@ function updateGraph(idx) {
 }
 
 function buildUrl(idx, graph, chartTitle, width, height, graphiteOperation) {
-	var params = "&lineWidth=" + config.defaultLineWidth + "&title=" + encodeURIComponent(chartTitle) + "&tz=" + $("#tz").val();
+	var params = "&lineWidth=" + config.defaultLineWidth + "&title=" + encodeURIComponent(chartTitle) + "&tz=" + $("#tz").val();		
+	if(config.defaultParameters){
+		params = params + "&" + config.defaultParameters;
+	}
 	if($('#graphParams' + idx).val()){
 		params += "&" + $('#graphParams' + idx).val();
 	}
@@ -175,11 +178,11 @@ function buildUrl(idx, graph, chartTitle, width, height, graphiteOperation) {
 			targetUri = targetUri + "&target=drawAsInfinite(" + config.events[i] + ")";
 		}
 	}
-	var userUrlParams = getUserUrlParams(idx);
+	var userParams = getUserUrlParams(idx);
 
 	var noBrowserCaching = "&" + (new Date()).getTime();
 
-	return getGraphiteServer() + "/" + graphiteOperation + "/?" + targetUri + range + legend + params + userUrlParams + size + noBrowserCaching;
+	return getGraphiteServer() + "/" + graphiteOperation + "/?" + targetUri + range + legend + params + userParams + size + noBrowserCaching;
 }
 
 function getGraphiteServer(){
@@ -232,7 +235,7 @@ function generatePermalink() {
 	if (timeBack != "") {
 		href = href + "&timeBack=" + timeBack;
 	} else if (start != "" && end != "") {
-		href = href + "&start=" + start + "&end=" + end;
+		href = href + "&from=" + start + "&until=" + end;
 	}
 
 	if (config.parameters) {
@@ -291,7 +294,9 @@ function updateDependantParameters(paramGroupName) {
 function loadParameterDependencies(paramGroupName, path) {
 	var dependencies = getDependenciesFromPath(path);
 	for (idx in dependencies) {
-		parameterDependencies[dependencies[idx]] = new Array();
+		if(!parameterDependencies[dependencies[idx]]){
+			parameterDependencies[dependencies[idx]] = new Array();
+		} 
 		parameterDependencies[dependencies[idx]].push(paramGroupName);
 	}
 }
@@ -366,7 +371,7 @@ function endsWith(str, suffix) {
 function getParamValueFromPath(paramGroup, metric) {
 	var result = "";
 
-	if (paramGroup.index) {
+	if (paramGroup.index != undefined) {
 		var pathParts = metric.path.split(".");
 		result = pathParts[paramGroup.index];
 	} else {
@@ -499,9 +504,9 @@ function mergeUrlParamsWithConfig(config) {
 	if (queryParam('timeBack') != null) {
 		config.timeBack = queryParam('timeBack');
 	}
-	if (queryParam('start') != null && queryParam('end') != null) {
-		config.from = queryParam('start');
-		config.until = queryParam('end');
+	if (queryParam('from') != null && queryParam('until') != null) {
+		config.from = queryParam('from');
+		config.until = queryParam('until');
 		config.hoursBack = null;
 		config.timeBack = null;
 	}
@@ -531,6 +536,9 @@ function mergeUrlParamsWithConfig(config) {
 	}
 	if (queryParam('defaultLineWidth') != null) {
 		config.defaultLineWidth = queryParam('defaultLineWidth');
+	}
+	if (queryParam('defaultParameters') != null) {
+		config.defaultParameters = queryParam('defaultParameters');
 	}
 }
 
